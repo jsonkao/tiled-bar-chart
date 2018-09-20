@@ -20,8 +20,8 @@ const getTiles = num => {
   return tiles;
 };
 
-const updateBar = (num, i) => {
-  const tiles = getTiles(d);
+function updateBar(num, i) {
+  const tiles = getTiles(num);
 
   const u = d3.select(this)
     .attr('transform', `translate(${i * BAR_WIDTH}, 300)`)
@@ -43,17 +43,20 @@ const updateBar = (num, i) => {
 };
 
 const updateBars = () => {
-  const u = d3.select('.bars')
+  const u = d3.select('g.bars')
     .selectAll('g')
     .data(data);
 
   u.enter()
-    .append('g');
+    .append('g')
+    .merge(u)
+    .style('fill', (d, i) => colors[i % colors.length])
+    .each(updateBar);
 
   u.exit().remove();    
 };
 
-updateBar(34);
+updateBars();
 
 
 
