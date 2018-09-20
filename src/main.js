@@ -51,7 +51,8 @@ const updateBars = () => {
     .append('g')
     .merge(u)
     .style('fill', (d, i) => colors[i % colors.length])
-    .each(updateBar);    
+    .each(updateBar)
+    .each(updateLabel);
 
   u.exit().remove();    
 };
