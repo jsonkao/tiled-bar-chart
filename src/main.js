@@ -6,7 +6,7 @@ const BAR_WIDTH = (TILES_PER_ROW * TILE_SIZE) + BAR_PADDING
 
 const colors = ["#ffd275", "#e8ae68", "#a57f60", "#e3a587", "#e48775"];
 let data = [42, 34, 12, 17, 53];
-
+  
 const getTiles = num => {
   const tiles = [];
 
@@ -42,6 +42,23 @@ function updateBar(d, i) {
   u.exit().remove();
 };
 
+function updateLabel(d) {
+  let el = d3.select(this)
+    .select('text');
+
+  if (el.empty()) {
+    el = d3.select(this)
+      .append('text')
+      .attr('y', -4)
+      .style('transform', 'rotate(-90deg)')
+      .style('font-size', '12px')
+      .style('font-weight', 'bold')
+      .style('fill', '#666');
+  }
+
+  el.text(d.name);
+}
+
 const updateBars = () => {
   const u = d3.select('g.bars')
     .selectAll('g')
@@ -73,7 +90,6 @@ const initialize = () => {
 
 d3.tsv("data/life-expectancy-WHO-2000-2016-simplified.tsv", (err, tsv) => {
   data = tsv;
-  console.log(data[0])
  
   initialize();
   updateBars();
