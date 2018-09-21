@@ -2,7 +2,9 @@ const TILE_SIZE = 16;
 const TILES_PER_ROW = 5;
 
 const BAR_PADDING = 20;
-const BAR_WIDTH = (TILES_PER_ROW * TILE_SIZE) + BAR_PADDING
+const BAR_WIDTH = (TILES_PER_ROW * TILE_SIZE) + BAR_PADDING;
+const MAX_VALUE = 100;
+const NUM_VISIBLE_COUNTRIES = 10;
 
 const colors = ["#ffd275", "#e8ae68", "#a57f60", "#e3a587", "#e48775"];
 let data = [42, 34, 12, 17, 53];
@@ -52,7 +54,6 @@ function updateLabel(d) {
       .attr('y', -4)
       .style('transform', 'rotate(-90deg)')
       .style('font-size', '12px')
-      .style('font-weight', 'bold')
       .style('fill', '#666');
   }
 
@@ -74,6 +75,17 @@ const updateBars = () => {
   u.exit().remove();    
 };
 
+const updateAxis = () => {
+  // const chartWidth = NUM_VISIBLE_COUNTRIES * BAR_WIDTH;
+  const chartHeight = (MAX_VALUE / TILES_PER_ROW) * TILE_SIZE;
+
+  const yScale = d3.scaleLinear().domain([0, MAX_VALUE]).range([chartHeight, 0]);
+  const yAxis = d3.axisRight().scale(yScale);
+
+  d3.select('.y.axis')
+    .call(yAxis);
+};
+
 const initializeData = () =>
   data = data
     .filter(d => +d.year === 2016)
@@ -82,7 +94,7 @@ const initializeData = () =>
       year: +d.year,
       age: +d.all
     }))
-    .slice(0, 10);
+    .slice(0, NUM_VISIBLE_COUNTRIES);
 
 const initialize = () => {
   initializeData();
@@ -93,6 +105,7 @@ d3.tsv("data/life-expectancy-WHO-2000-2016-simplified.tsv", (err, tsv) => {
  
   initialize();
   updateBars();
+  updateAxis();
 });
 
 
