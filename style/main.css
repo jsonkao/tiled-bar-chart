@@ -1,3 +1,17 @@
 body {
   font-family: sans-serif;
 }
+
+.axis line {
+  stroke: #eee;
+}
+
+.y.axis path {
+  display: none;
+}
+
+.y.axis text {
+  font-size: 11px;
+  fill: #777;
+  font-weight: bold;
+}
