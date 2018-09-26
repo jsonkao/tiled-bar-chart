@@ -2,7 +2,7 @@ const TILE_SIZE = 15;
 const TILES_PER_ROW = 5;
 const BAR_PADDING = 20;
 const MAX_VALUE = 100;
-const NUM_VISIBLE_COUNTRIES = 10;
+const NUM_VISIBLE_COUNTRIES = 6;
 
 const barWidth = (TILES_PER_ROW * TILE_SIZE) + BAR_PADDING;
 
@@ -34,16 +34,26 @@ function updateBar(d, i) {
 
   u.enter()
     .append('rect')
+    .style('opacity', 0)
     .style('stroke', 'white')
-    .style('stroke-width', '0.5')
+    .style('stroke-width', 0.4)
     .style('shape-rendering', 'crispEdges')
     .merge(u)
     .attr('x', d => d.x)
     .attr('y', d => d.y)
     .attr('width', TILE_SIZE)
-    .attr('height', TILE_SIZE);
+    .attr('height', TILE_SIZE)
+    .transition()
+    .delay((d, i) => i * 20)
+    .style('opacity', 1);
 
-  u.exit().remove();
+  u.exit()
+    .transition()
+    .delay((d, i) => (100 - i) * 20)
+    .style('opacity', 0)
+    .on('end', function() {
+      d3.select(this).remove();
+    });
 };
 
 function updateLabel(d) {
@@ -53,8 +63,7 @@ function updateLabel(d) {
   if (el.empty()) {
     el = d3.select(this)
       .append('text')
-      .attr('y', -4)
-      .style('transform', 'rotate(-90deg)')
+      .attr('y', 16)
       .style('font-size', '12px')
       .style('fill', '#666');
   }

@@ -2,6 +2,38 @@ body {
   font-family: sans-serif;
 }
 
+#chart {
+  background-color: #ddd;
+  padding: 50px;
+}
+
+#menu {
+  margin-left: 20px;
+}
+
+select {
+  width: 200px;
+  padding: 3px;
+  margin-right: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+}
+
+.legend {
+  font-size: 12px;
+  fill: #555;
+}
+
+.legend rect {
+  fill: #aaa;
+}
+
+.title {
+  font-weight: bold;
+  fill: #555;
+}
+
 .axis line {
   stroke: #eee;
 }
