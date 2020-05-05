@@ -1,4 +1,3 @@
-# tiled-bar-chart
+# SLUG
 
-Showing individual data points by splitting bars into smaller cells. From a FlowingData [tutorial](https://flowingdata.com/2018/09/20/tiled-bar-chart-d3-js/).
- 
+This story was created with [Spectate](https://github.com/graphicsdesk/spectate). For setup and usage instructions, see the [Spectate documentation](https://github.com/graphicsdesk/spectate/#cloning-a-spectate-project).
